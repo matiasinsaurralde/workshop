@@ -104,3 +104,5 @@ func (i *Inventory) UpdateRentalCost(name string, newCost int) error {
 	}
 	return nil
 }
+
+func main() {}
