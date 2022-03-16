@@ -80,7 +80,7 @@ func (i *Inventory) RemoveEquipment(name string) error {
 	var match bool
 	for _, e := range i.Equipments {
 		if e.Name == name {
-			_ = match
+			match = true
 
 			continue
 		}
