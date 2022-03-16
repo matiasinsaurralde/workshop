@@ -9,11 +9,13 @@ var (
 	errAlreadyExists         = errors.New("already exists")
 )
 
+// Member is the member's data structure
 type Member struct {
 	Name    string
 	Balance int
 }
 
+// Rent is called by member when renting equipment
 func (m *Member) Rent(inventory *Inventory, equipmentsToRent []string, startDate string, endDate string, numberOfDays int) error {
 	// Iterate through all equipments in the given inventory
 	// if (i) equipment with the given name exists and
@@ -46,16 +48,19 @@ func (m *Member) Rent(inventory *Inventory, equipmentsToRent []string, startDate
 	return nil
 }
 
+// Equipment holds equipment information
 type Equipment struct {
 	Name         string
 	RentalCost   int
 	Availability bool
 }
 
+// Inventory holds an array of equipments
 type Inventory struct {
 	Equipments []*Equipment
 }
 
+// AddEquipment adds a new equipment to the inventory:
 func (i *Inventory) AddEquipment(e *Equipment) error {
 	// First check if item already exists or not:
 	for _, existingEquipment := range i.Equipments {
@@ -69,6 +74,7 @@ func (i *Inventory) AddEquipment(e *Equipment) error {
 	return nil
 }
 
+// RemoveEquipment removes an equipment from the inventory:
 func (i *Inventory) RemoveEquipment(name string) error {
 	newEquipments := make([]*Equipment, 0)
 	var match bool
@@ -86,10 +92,12 @@ func (i *Inventory) RemoveEquipment(name string) error {
 	return nil
 }
 
+// Size is an alias for len(i.Equipments)
 func (i *Inventory) Size() int {
 	return len(i.Equipments)
 }
 
+// UpdateRentalCost is used to update the rental cost of a given equipment:
 func (i *Inventory) UpdateRentalCost(name string, newCost int) error {
 	var match bool
 	for _, e := range i.Equipments {
