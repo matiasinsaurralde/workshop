@@ -169,6 +169,5 @@ func TestInventorUpdatingAnItem(t *testing.T) {
 
 	// Try to update nonexistent item:
 	err = inventory.UpdateRentalCost("W02 Pyranha Burn", 3)
-	// assert.EqualError(t, err, "not exists")
-	assert.NoError(t, err)
+	assert.EqualError(t, err, "not exists")
 }
