@@ -36,6 +36,36 @@ func TestEquipmentRent(t *testing.T) {
 	assert.Equal(t, member.Balance, 46)
 }
 
+func TestEquipmentRentMutation(t *testing.T) {
+	member := Member{
+		Name:    "Wojciech",
+		Balance: 4,
+	}
+	inventory := Inventory{
+		Equipments: []*Equipment{
+			{
+				Name:         "W03 Pyranha Burn",
+				RentalCost:   1,
+				Availability: true,
+			},
+			{
+				Name:         "P05 TNP Rapa",
+				RentalCost:   1,
+				Availability: true,
+			},
+		},
+	}
+
+	err := member.Rent(&inventory, []string{
+		"W03 Pyranha Burn",
+		"P05 TNP Rapa",
+	}, "2022-03-15", "2022-03-16", 2)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, member.Balance, 0)
+}
+
 func TestEquipmentRentNotEnoughBalance(t *testing.T) {
 	member := Member{
 		Name:    "Wojciech",
@@ -148,7 +178,7 @@ func TestInventoryRemovingAnItem(t *testing.T) {
 	assert.EqualError(t, err, "not exists")
 }
 
-func TestInventorUpdatingAnItem(t *testing.T) {
+func TestInventoryUpdatingAnItem(t *testing.T) {
 	inventory := Inventory{
 		Equipments: []*Equipment{
 			{
